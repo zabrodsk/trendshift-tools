@@ -1,21 +1,13 @@
-<h1 align="center">Trendshift Tools</h1>
+# Trendshift Tools
 
-<p align="center">
-  <strong>Free GitHub trend scraping for your terminal, scripts, dashboards, and AI agents.</strong>
-</p>
+**Free GitHub trend scraping for your terminal, scripts, dashboards, and AI agents.**
 
-<p align="center">
-  <a href="https://github.com/zabrodsk/trendshift-tools/blob/main/LICENSE">
-    <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-16a34a?style=for-the-badge">
-  </a>
-  <img alt="Node.js >= 20" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=for-the-badge&logo=node.js&logoColor=white">
-  <img alt="CLI and MCP" src="https://img.shields.io/badge/CLI%20%2B%20MCP-ready-7c3aed?style=for-the-badge">
-  <img alt="Public pages only" src="https://img.shields.io/badge/public%20pages-only-0ea5e9?style=for-the-badge">
-</p>
+[![License: MIT](https://img.shields.io/badge/license-MIT-16a34a?style=for-the-badge)](LICENSE)
+![Node 20+](https://img.shields.io/badge/node-20%2B-339933?style=for-the-badge)
+![CLI + MCP](https://img.shields.io/badge/CLI%20%2B%20MCP-ready-7c3aed?style=for-the-badge)
+![Public pages only](https://img.shields.io/badge/public%20pages-only-0ea5e9?style=for-the-badge)
 
-<p align="center">
-  Turn Trendshift's public GitHub trend pages into clean JSON, then use that data anywhere.
-</p>
+Turn Trendshift's public GitHub trend pages into clean JSON, then use that data anywhere.
 
 ---
 
@@ -77,6 +69,20 @@ trendshift daily --limit 10
 }
 ```
 
+Prefer something easier to read?
+
+```bash
+trendshift daily --limit 5 --format text
+trendshift weekly --limit 5 --format markdown
+trendshift brief daily --limit 5
+```
+
+On macOS, you can make it speak:
+
+```bash
+trendshift brief daily --limit 5 | say
+```
+
 ## CLI Commands
 
 ```bash
@@ -102,7 +108,24 @@ trendshift repo 23482
 trendshift search mcp --limit 10
 ```
 
-All commands print JSON.
+All commands print JSON by default.
+
+Use `--format` when you want output for humans instead of scripts:
+
+```bash
+trendshift daily --format json
+trendshift daily --format text
+trendshift daily --format markdown
+trendshift daily --format speech
+```
+
+`brief` is shorthand for speech-friendly output:
+
+```bash
+trendshift brief daily --limit 3
+trendshift brief topics --limit 5
+trendshift brief search "local llm" --limit 5
+```
 
 ## MCP Server
 
