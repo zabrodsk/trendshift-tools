@@ -1,0 +1,21 @@
+{
+  "name": "trendshift-tools",
+  "version": "0.1.0",
+  "description": "Public-page CLI and MCP wrapper for Trendshift.",
+  "type": "module",
+  "bin": {
+    "trendshift": "./bin/trendshift.js",
+    "trendshift-mcp": "./src/mcp-server.js"
+  },
+  "scripts": {
+    "test": "node --test",
+    "smoke": "node ./bin/trendshift.js daily --limit 5 && node ./bin/trendshift.js topics --limit 5"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
