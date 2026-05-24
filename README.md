@@ -1,20 +1,45 @@
-# Trendshift Tools
+<h1 align="center">Trendshift Tools</h1>
 
-Scrape GitHub trends for free from Trendshift's public pages.
+<p align="center">
+  <strong>Free GitHub trend scraping for your terminal, scripts, dashboards, and AI agents.</strong>
+</p>
 
-Trendshift Tools gives you a small CLI and a stdio MCP server for pulling trending open-source repository data into scripts, agents, dashboards, and local workflows. It is built for people who want useful GitHub trend data without paying for a trends API or manually copying rows out of a browser.
+<p align="center">
+  <a href="https://github.com/zabrodsk/trendshift-tools/blob/main/LICENSE">
+    <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-16a34a?style=for-the-badge">
+  </a>
+  <img alt="Node.js >= 20" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=for-the-badge&logo=node.js&logoColor=white">
+  <img alt="CLI and MCP" src="https://img.shields.io/badge/CLI%20%2B%20MCP-ready-7c3aed?style=for-the-badge">
+  <img alt="Public pages only" src="https://img.shields.io/badge/public%20pages-only-0ea5e9?style=for-the-badge">
+</p>
 
-> Trendshift does not currently publish an official API, MCP server, or CLI. This project reads public HTML pages and turns the visible data into JSON.
+<p align="center">
+  Turn Trendshift's public GitHub trend pages into clean JSON, then use that data anywhere.
+</p>
 
-## What You Can Do
+---
 
-- Scrape current GitHub trends for free
-- Fetch daily and weekly trending repositories
-- Read Trendshift topic pages
-- Pull live social mentions from the public Trendshift page
-- Inspect a repository detail page by Trendshift repository id
-- Search across currently visible Trendshift trend pages
-- Expose all of that to AI agents through MCP
+## The Pitch
+
+Trendshift is useful for seeing which open-source projects are breaking out. Trendshift Tools makes that signal programmable.
+
+Use it to scrape GitHub trends for free, pipe the data into local scripts, feed an AI research agent, build lightweight alerts, or track fast-moving categories like MCP, AI agents, local LLMs, developer tools, and infrastructure.
+
+No dashboard clicking. No copy-paste. Just JSON.
+
+> This is not an official Trendshift integration. Trendshift does not currently publish an official API, MCP server, or CLI. This project reads public HTML pages and converts visible data into structured output.
+
+## Highlights
+
+| Capability | CLI | MCP |
+| --- | --- | --- |
+| Daily trending repositories | Yes | Yes |
+| Weekly trending repositories | Yes | Yes |
+| GitHub trending page data | Yes | Yes |
+| Public topics | Yes | Yes |
+| Live social mentions | Yes | Yes |
+| Repository detail pages | Yes | Yes |
+| Simple cross-page search | Yes | Yes |
 
 ## Install
 
@@ -25,31 +50,17 @@ npm install
 npm link
 ```
 
-After linking, these commands are available:
+That gives you two commands:
 
 ```bash
 trendshift
 trendshift-mcp
 ```
 
-## CLI Usage
-
-All CLI commands print JSON.
+## Quick Start
 
 ```bash
 trendshift daily --limit 10
-trendshift weekly --year 2026 --week 20 --limit 10
-trendshift github --limit 10
-trendshift topics --limit 20
-trendshift live --limit 10
-trendshift repo 23482
-trendshift search mcp --limit 10
-```
-
-Example:
-
-```bash
-trendshift daily --limit 3
 ```
 
 ```json
@@ -66,9 +77,36 @@ trendshift daily --limit 3
 }
 ```
 
-## MCP Usage
+## CLI Commands
 
-Run the MCP server:
+```bash
+# Current daily trends
+trendshift daily --limit 10
+
+# Weekly trends, optionally pinned to a year/week
+trendshift weekly --year 2026 --week 20 --limit 10
+
+# Trendshift's GitHub trending page
+trendshift github --limit 10
+
+# Public Trendshift topics
+trendshift topics --limit 20
+
+# Live mentions visible on Trendshift
+trendshift live --limit 10
+
+# One repository detail page by Trendshift id
+trendshift repo 23482
+
+# Search across visible trend pages
+trendshift search mcp --limit 10
+```
+
+All commands print JSON.
+
+## MCP Server
+
+Run the server:
 
 ```bash
 trendshift-mcp
@@ -87,9 +125,9 @@ Or configure your MCP client directly:
 }
 ```
 
-Available MCP tools:
+Available tools:
 
-| Tool | What it returns |
+| Tool | Description |
 | --- | --- |
 | `trendshift_daily` | Current daily trending repositories |
 | `trendshift_weekly` | Weekly trending repositories, optionally by year and week |
@@ -99,28 +137,30 @@ Available MCP tools:
 | `trendshift_repository` | One repository detail page by Trendshift id |
 | `trendshift_search` | Simple search across visible trend pages |
 
-## Why This Exists
+## Use Cases
 
-GitHub's own API is great for repository metadata, but it does not give you Trendshift's view of what is rising right now. Trendshift shows useful public signals across GitHub trends, topics, and mentions. This project makes those public signals scriptable.
+- Watch rising open-source projects before they hit mainstream feeds
+- Track specific ecosystems such as MCP, AI coding, local LLMs, or infra
+- Feed discovery data into Claude, Codex, ChatGPT, or another MCP client
+- Build a personal trend dashboard without a paid data provider
+- Run cron jobs that snapshot trend movement over time
+- Enrich GitHub API metadata with Trendshift's discovery signal
 
-Use it when you want to:
+## How It Works
 
-- Monitor new open-source projects in your niche
-- Feed trend data into an AI research agent
-- Build a personal dashboard of rising repositories
-- Watch topics like MCP, AI agents, local LLMs, devtools, or infra
-- Create lightweight alerts without a paid trend-data provider
+Trendshift Tools fetches public Trendshift pages, parses the visible repository/topic/mention links, and normalizes them into JSON.
 
-## Reliability
+It intentionally avoids Trendshift `/api/*` routes. Trendshift's `robots.txt` disallows `/api/`, and this project is designed around the public page surface.
 
-This is a public-page scraper, not an official integration. It does not call Trendshift `/api/*` routes. Trendshift's `robots.txt` disallows `/api/`, and no public API documentation was found when this wrapper was built.
+## Reliability Notes
 
-Because it depends on page structure, you should:
+This is a public-page scraper, so it is only as stable as Trendshift's page structure. For production-ish workflows:
 
-- Cache results when polling
+- Cache responses when polling
 - Keep request rates reasonable
-- Expect parser updates if Trendshift changes its markup
-- Prefer GitHub's official API for deep repository metadata
+- Expect parser updates if markup changes
+- Use GitHub's official API for deep repository metadata
+- Treat Trendshift as a discovery signal, not the only source of truth
 
 ## Development
 
